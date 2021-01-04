@@ -4,6 +4,7 @@ from mininet.cli import CLI
 from mininet.log import lg, info
 from mininet.topo import Topo
 from mininet.net import Mininet
+import time
 
 class SingleSwitchTopo(Topo):
     "Single switch connected to n hosts."
@@ -17,6 +18,7 @@ class SingleSwitchTopo(Topo):
 def start_nfd(node):
     homeDir = '/tmp/mininet/{}'.format(node.name)
     node.cmd('mkdir -p {}'.format(homeDir))
+    node.cmd('export HOME={} && cd ~'.format(homeDir))
     ndnFolder  = '{}/.ndn'.format(homeDir)
     node.cmd('mkdir -p {}'.format(ndnFolder))
     confFile   = '{}/nfd.conf'.format(homeDir)
@@ -31,8 +33,10 @@ def start_nfd(node):
     # Change the unix socket
     node.cmd('sudo sed -i "s|;transport|transport|g" {}'.format(clientConf))
     node.cmd('sudo sed -i "s|nfd.sock|{}.sock|g" {}'.format(node.name, clientConf))
+    node.cmd('ndnsec-keygen /localhost/operator | ndnsec-install-cert -')
     print("Starting with config file {}".format(confFile))
-    node.cmd('nfd --config {}'.format(confFile))
+    node.cmd('nfd --config {} 2>&1&'.format(confFile))
+
 
 
 if __name__ == '__main__':
@@ -40,12 +44,17 @@ if __name__ == '__main__':
     topo = SingleSwitchTopo(n=2)
     net = Mininet(topo)
     net.start()
+    time.sleep(2)
     info( "*** Hosts are running and should have internet connectivity\n" )
     info( "*** Type 'exit' or control-D to shut down network\n" )
     node = net.hosts[0]
+    node.setIP("10.0.0.5")
     start_nfd(node)
-    #node = net.hosts[1]
-    #start_nfd(node)
+    time.sleep(2)
+    node = net.hosts[1]
+    node.setIP("10.0.0.6")
+    start_nfd(node)
+    time.sleep(2)
     CLI( net )
     # Shut down NAT
     net.stop()
