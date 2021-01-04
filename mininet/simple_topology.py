@@ -35,7 +35,7 @@ def start_nfd(node):
     node.cmd('sudo sed -i "s|nfd.sock|{}.sock|g" {}'.format(node.name, clientConf))
     node.cmd('ndnsec-keygen /localhost/operator | ndnsec-install-cert -')
     print("Starting with config file {}".format(confFile))
-    node.cmd('nfd --config {} 2>&1&'.format(confFile))
+    node.cmd('nfd --config {} > /dev/null  2>&1&'.format(confFile))
 
 
 
