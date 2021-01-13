@@ -5,15 +5,19 @@ from mininet.log import lg, info
 from mininet.topo import Topo
 from mininet.net import Mininet
 import time
+import subprocess
+from mininet.nodelib import NAT
 
 class SingleSwitchTopo(Topo):
-    "Single switch connected to n hosts."
-    def build(self, n=2):
-        switch = self.addSwitch('s1')
-        # Python's range(N) generates 0..N-1
-        for h in range(n):
-            host = self.addHost('h%s' % (h + 1))
-            self.addLink(host, switch)
+    def build( self, natIP='10.0.3.254' ):
+        self.hopts = { 'defaultRoute': 'via ' + natIP }
+        hosts  = [ self.addHost( h ) for h in ['h1', 'h2'] ]
+        s1 = self.addSwitch( 's1' )
+        for h in hosts:
+            self.addLink( s1, h )
+        nat1 = self.addNode( 'nat1', cls=NAT, ip=natIP,
+                             inNamespace=False )
+        self.addLink( nat1, s1 )
 
 def start_nfd(node):
     homeDir = '/tmp/mininet/{}'.format(node.name)
@@ -33,28 +37,27 @@ def start_nfd(node):
     # Change the unix socket
     node.cmd('sudo sed -i "s|;transport|transport|g" {}'.format(clientConf))
     node.cmd('sudo sed -i "s|nfd.sock|{}.sock|g" {}'.format(node.name, clientConf))
-    node.cmd('ndnsec-keygen /localhost/operator | ndnsec-install-cert -')
+    node.cmd('ndnsec-keygen /ndn/edu/colostate/testApp | ndnsec-install-cert -')
     print("Starting with config file {}".format(confFile))
-    node.cmd('nfd --config {} > /dev/null  2>&1&'.format(confFile))
+    #node.cmd('nfd --config {} > /dev/null  2>&1&'.format(confFile))
 
 
 
 if __name__ == '__main__':
     lg.setLogLevel( 'info')
-    topo = SingleSwitchTopo(n=2)
+    topo = SingleSwitchTopo()
     net = Mininet(topo)
     net.start()
     time.sleep(2)
     info( "*** Hosts are running and should have internet connectivity\n" )
     info( "*** Type 'exit' or control-D to shut down network\n" )
     node = net.hosts[0]
-    node.setIP("10.0.0.5")
     start_nfd(node)
     time.sleep(2)
     node = net.hosts[1]
-    node.setIP("10.0.0.6")
     start_nfd(node)
     time.sleep(2)
     CLI( net )
     # Shut down NAT
+    subprocess.run(["nfd-stop"])
     net.stop()

@@ -13,9 +13,10 @@ async def main():
     try:
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
-            '/example/testApp/randomData',
-            must_be_fresh=True,
-            can_be_prefix=False,
+            #'/ndn/edu/colostate/testApp/randomData',
+            '/ndn/gr/aueb/fotiou/KEY',
+            must_be_fresh=False,
+            can_be_prefix=True,
             # Interest lifetime in ms
             lifetime=6000)
         # Print out Data Name, MetaInfo and its conetnt.
