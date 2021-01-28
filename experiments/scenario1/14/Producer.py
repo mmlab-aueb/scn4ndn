@@ -3,7 +3,7 @@ from ndn.app import NDNApp
 from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
 import os
 
-face = "udp://ndn.netsec.colostate.edu"
+face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
