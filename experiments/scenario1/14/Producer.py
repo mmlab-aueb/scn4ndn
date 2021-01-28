@@ -21,6 +21,7 @@ def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[B
     print("Received interest for key")
     app.put_data(name, content=cert.data, freshness_period=10000)
 
+print("Will adverise:" + prefix + '/info')
 @app.route(prefix + '/info')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for /info")
