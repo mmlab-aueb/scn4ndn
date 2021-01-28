@@ -3,11 +3,11 @@ from ndn.app import NDNApp
 from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
 import os
 
-face = "udp://mmlab-aueb-1.mmlab.edu.gr"
+face = "udp://ndn.netsec.colostate.edu"
 
 print("Configuring NFD...")
-#os.system('nfdc face create ' + face)
-#os.system('nfdc route add /localhop/nfd ' + face)
+os.system('nfdc face create ' + face)
+os.system('nfdc route add /localhop/nfd ' + face)
 
 app = NDNApp()
 cert = app.keychain['/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr'].default_key().default_cert()
