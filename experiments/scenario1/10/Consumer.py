@@ -19,8 +19,8 @@ async def main():
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
             prefix + '/info',
-            must_be_fresh=True,
-            can_be_prefix=False,
+            must_be_fresh=False,
+            can_be_prefix=True,
             # Interest lifetime in ms
             lifetime=6000)
         # Print out Data Name, MetaInfo and its conetnt.
