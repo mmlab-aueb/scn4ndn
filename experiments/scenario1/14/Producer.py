@@ -4,13 +4,15 @@ from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
 import os
 
 face = "udp://ndn.netsec.colostate.edu"
+#prefix = '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info'
+prefix = "/ndn/gr/aueb/fotiou"
 
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
 os.system('nfdc route add /localhop/nfd ' + face)
 
 app = NDNApp()
-cert = app.keychain['/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr'].default_key().default_cert()
+cert = app.keychain[prefix].default_key().default_cert()
 print("Will adverise:" + Name.to_str(cert.key))
 
 @app.route(cert.key)
@@ -18,7 +20,7 @@ def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[B
     print("Received interest for " + cert.key)
     app.put_data(name, content=cert.data, freshness_period=10000)
 
-@app.route('/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info')
+@app.route(prefix + '/info')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for /ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info")
     app.put_data(name, content=b'Info about scn4ndn from .14', freshness_period=10000)
