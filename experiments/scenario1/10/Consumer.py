@@ -2,6 +2,13 @@ from ndn.encoding import Name
 from ndn.app import NDNApp
 from ndn.types import InterestNack, InterestTimeout, InterestCanceled, ValidationFailure
 
+import os
+
+face = "udp://ndn.netsec.colostate.edu"
+
+print("Configuring NFD...")
+os.system('nfdc face create ' + face)
+os.system('nfdc route add /ndn ' + face)
 app = NDNApp()
 
 async def main():
