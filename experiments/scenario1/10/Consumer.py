@@ -4,7 +4,7 @@ from ndn.types import InterestNack, InterestTimeout, InterestCanceled, Validatio
 
 import os
 
-face = "udp://ndn.netsec.colostate.edu"
+face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
@@ -15,7 +15,7 @@ async def main():
     try:
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
-            '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info',
+            '/ndn/gr/aueb/fotiou/info',
             must_be_fresh=True,
             can_be_prefix=False,
             # Interest lifetime in ms
