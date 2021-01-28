@@ -15,7 +15,7 @@ async def main():
     try:
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
-            '/ndn/gr/aueb/fotiou/info',
+            '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info',
             must_be_fresh=True,
             can_be_prefix=False,
             # Interest lifetime in ms
