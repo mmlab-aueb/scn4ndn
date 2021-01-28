@@ -4,8 +4,8 @@ from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
 import os
 
 face = "udp://ndn.netsec.colostate.edu"
-#prefix = '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info'
-prefix = "/ndn/gr/aueb/fotiou"
+prefix = '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr'
+#prefix = "/ndn/gr/aueb/fotiou"
 
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
