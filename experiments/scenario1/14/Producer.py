@@ -17,7 +17,7 @@ print("Will adverise:" + Name.to_str(cert.key))
 
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
-    print("Received interest for " + cert.key)
+    print("Received interest for keyl")
     app.put_data(name, content=cert.data, freshness_period=10000)
 
 @app.route(prefix + '/info')
