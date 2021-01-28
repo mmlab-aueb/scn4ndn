@@ -17,12 +17,12 @@ print("Will adverise:" + Name.to_str(cert.key))
 
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
-    print("Received interest for keyl")
+    print("Received interest for key")
     app.put_data(name, content=cert.data, freshness_period=10000)
 
 @app.route(prefix + '/info')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
-    print("Received interest for /ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/info")
+    print("Received interest for /info")
     app.put_data(name, content=b'Info about scn4ndn from .14', freshness_period=10000)
    
 
