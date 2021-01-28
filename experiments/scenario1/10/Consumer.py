@@ -18,7 +18,7 @@ async def main():
     try:
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
-            prefix + '/info',
+            prefix + '/about',
             must_be_fresh=False,
             can_be_prefix=True,
             # Interest lifetime in ms
