@@ -8,7 +8,7 @@ face = "udp://ndn.netsec.colostate.edu"
 #face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 #face = "udp://titan.cs.memphis.edu"
 
-prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
+prefix = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com"
 
 app = NDNApp()
 cert = app.keychain[prefix].default_key().default_cert()
