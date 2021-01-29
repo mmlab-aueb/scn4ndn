@@ -9,7 +9,8 @@ face = "udp://ndn.netsec.colostate.edu"
 #prefix = '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr'
 #prefix = "/ndn/gr/aueb/fotiou"
 #prefix = "/ndn/edu/colostate/%40GUEST/fotiou%40aueb.gr"
-prefix = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr"
+#prefix = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr"
+prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
 
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
