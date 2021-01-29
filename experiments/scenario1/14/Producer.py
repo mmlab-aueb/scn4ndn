@@ -12,7 +12,6 @@ prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
 
 app = NDNApp()
 cert = app.keychain[prefix].default_key().default_cert()
-print(cert.data)
 
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
