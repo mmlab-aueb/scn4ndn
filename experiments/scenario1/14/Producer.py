@@ -19,6 +19,7 @@ os.system('nfdc route add /localhop/nfd ' + face)
 app = NDNApp()
 cert = app.keychain[prefix].default_key().default_cert()
 print("Will adverise:" + Name.to_str(cert.key))
+print(cert.data)
 
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
