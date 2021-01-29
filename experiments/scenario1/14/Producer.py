@@ -12,15 +12,17 @@ face = "udp://mmlab-aueb-2.mmlab.edu.gr"
 #prefix = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr"
 prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
 
+app = NDNApp()
+cert = app.keychain[prefix].default_key().default_cert()
+print(cert.data)
+
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
 os.system('nfdc route add /localhop/nfd ' + face)
 
-app = NDNApp()
-cert = app.keychain[prefix].default_key().default_cert()
-print("Will adverise:" + Name.to_str(cert.key))
-print(cert.data)
 
+
+print("Will adverise:" + Name.to_str(cert.key))
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for key")
