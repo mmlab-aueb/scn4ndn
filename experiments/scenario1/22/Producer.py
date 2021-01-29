@@ -4,11 +4,11 @@ from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
 import os
 #nfdc face create udp://ndn.netsec.colostate.edu
 
-#face = "udp://ndn.netsec.colostate.edu"
+face = "udp://ndn.netsec.colostate.edu"
 #face = "udp://mmlab-aueb-1.mmlab.edu.gr"
-face = "udp://titan.cs.memphis.edu"
+#face = "udp://titan.cs.memphis.edu"
 
-prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
+prefix = "/ndn/gr/aueb/thomasi"
 
 app = NDNApp()
 cert = app.keychain[prefix].default_key().default_cert()
@@ -30,7 +30,7 @@ print("Will adverise:" + prefix + '/about')
 @app.route(prefix + '/info')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for /info")
-    app.put_data(name, content=b'Info about scn4ndn from .14', freshness_period=10000)
+    app.put_data(name, content=b'Info about scn4ndn from .22', freshness_period=10000)
    
 
 if __name__ == '__main__':
