@@ -8,7 +8,7 @@ face = "udp://ndn.netsec.colostate.edu"
 #face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 #face = "udp://titan.cs.memphis.edu"
 
-prefix = "/ndn/gr/aueb/thomasi"
+prefix = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr"
 
 app = NDNApp()
 cert = app.keychain[prefix].default_key().default_cert()
@@ -26,9 +26,9 @@ def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[B
     app.put_raw_packet(cert.data)
 
 print("Will adverise:" + prefix + '/about')
-@app.route(prefix + '/info')
+@app.route(prefix + '/about')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
-    print("Received interest for /info")
+    print("Received interest for /about")
     app.put_data(name, content=b'Info about scn4ndn from .22', freshness_period=10000)
    
 

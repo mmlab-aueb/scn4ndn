@@ -39,7 +39,7 @@ async def main():
         print(f'Data failed to validate')
 
     try:
-        prefix = "/ndn/gr/aueb/thomasi"
+        prefix = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr"
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
             prefix + '/about',
