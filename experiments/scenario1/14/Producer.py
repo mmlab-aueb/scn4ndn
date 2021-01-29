@@ -5,7 +5,8 @@ import os
 #nfdc face create udp://ndn.netsec.colostate.edu
 
 #face = "udp://ndn.netsec.colostate.edu"
-face = "udp://mmlab-aueb-1.mmlab.edu.gr"
+#face = "udp://mmlab-aueb-1.mmlab.edu.gr"
+face = "udp://titan.cs.memphis.edu"
 #prefix = '/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr'
 #prefix = "/ndn/gr/aueb/fotiou"
 #prefix = "/ndn/edu/colostate/%40GUEST/fotiou%40aueb.gr"
@@ -26,7 +27,7 @@ print("Will adverise:" + Name.to_str(cert.key))
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for key")
-    app.put_raw_packet(name, data:cert.data)
+    app.put_raw_packet(cert.data)
 
 print("Will adverise:" + prefix + '/about')
 @app.route(prefix + '/info')
