@@ -26,7 +26,7 @@ async def express_interest(insterest_name):
         prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
         data_name, meta_info, content = await app.express_interest(
             insterest_name,
-            must_be_fresh=False,
+            must_be_fresh=True,
             can_be_prefix=True,
             lifetime=6000)
         data_received(insterest_name, data_name, meta_info, content)
