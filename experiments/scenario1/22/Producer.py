@@ -1,6 +1,6 @@
 from typing import Optional
 from ndn.app import NDNApp
-from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
+from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo, Component
 import os
 #nfdc face create udp://ndn.netsec.colostate.edu
 
@@ -29,6 +29,7 @@ print("Will adverise:" + prefix + '/file1')
 @app.route(prefix + '/file1')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for " + Name.to_str(name))
+    print ("chunk " + Component.to_str(name[-1]))
     app.put_data(name, content=b'Info about scn4ndn from .22', freshness_period=10000)
    
 
