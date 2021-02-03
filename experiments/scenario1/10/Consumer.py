@@ -19,7 +19,7 @@ async def metadata_received(interest_name, data_name, meta_info, content):
     print ("Received root %s" %(time.time() - start_time))
     data = bytes(content)
     metadata = json.loads(data.decode())
-    await download_chuncks(Name.to_str(data_name),metadata)
+    #await download_chuncks(Name.to_str(data_name),metadata)
     tasks = [
         download_chuncks_worker(Name.to_str(data_name),1,5),
         download_chuncks_worker(metadata['alsoknownas'],6,10)
