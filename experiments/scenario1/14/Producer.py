@@ -1,6 +1,6 @@
 from typing import Optional
 from ndn.app import NDNApp
-from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
+from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo, Component
 import os
 #nfdc face create udp://ndn.netsec.colostate.edu
 
