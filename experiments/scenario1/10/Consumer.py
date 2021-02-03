@@ -34,7 +34,9 @@ async def express_interest(insterest_name):
         interest_failed(insterest_name)
 
 async def run():
-    interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/about"
+    interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/file1"
+    await express_interest(interest_name)
+    interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/file1/chunk1"
     await express_interest(interest_name)
     app.shutdown()
 
