@@ -18,7 +18,7 @@ def data_received(insterest_name, data_name, meta_info, content):
     print(bytes(content) if content else None)
 
 def interest_failed(interest_name):
-    printf(interest_name + " Failed")
+    print(interest_name + " Failed")
 
 
 async def express_interest(insterest_name):
