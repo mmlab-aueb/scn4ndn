@@ -34,7 +34,7 @@ def interest_failed(interest_name):
 
 async def download_chuncks (metadata):
     await asyncio.gather(
-        download_chuncks(Name.to_str(data_name),metadata['chunks'])
+        download_chuncks_worker(Name.to_str(data_name),metadata['chunks'])
     ) 
 
 async def download_chuncks_worker (content_name, num_chunks):
