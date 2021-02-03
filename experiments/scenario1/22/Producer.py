@@ -19,8 +19,8 @@ os.system('nfdc face create ' + face)
 os.system('nfdc route add /localhop/nfd ' + face)
 
 file1_metadata={
-    'chunks' = 10,
-    'alsoknownas' = '/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com/file1' 
+    'chunks': 10,
+    'alsoknownas':'/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com/file1' 
 }
 
 print("Will adverise:" + Name.to_str(cert.key))
