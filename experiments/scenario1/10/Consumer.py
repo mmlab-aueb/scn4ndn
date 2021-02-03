@@ -4,6 +4,8 @@ from ndn.types import InterestNack, InterestTimeout, InterestCanceled, Validatio
 
 import os
 import json
+import time
+start_time = time.time()
 
 face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 
@@ -19,6 +21,7 @@ def data_received(insterest_name, data_name, meta_info, content):
     #print(bytes(content) if content else None)
     chunk = Component.to_str(data_name[-1])
     if (chunk == "file1"): #root
+        print ("Received root %s" %(time.time() - start_time))
         data = bytes(content)
         metadata = json.loads(data.decode())
         print(metadata['chunks'])
@@ -43,6 +46,7 @@ async def express_interest(insterest_name):
 
 async def run():
     interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/file1"
+    print ("Sending interest for root %s" %(time.time() - start_time))
     await express_interest(interest_name)
     interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/file1/chunk1"
     await express_interest(interest_name)
