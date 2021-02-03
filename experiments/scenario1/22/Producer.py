@@ -2,6 +2,7 @@ from typing import Optional
 from ndn.app import NDNApp
 from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo, Component
 import os
+import json
 #nfdc face create udp://ndn.netsec.colostate.edu
 
 face = "udp://ndn.netsec.colostate.edu"
@@ -17,7 +18,10 @@ print("Configuring NFD...")
 os.system('nfdc face create ' + face)
 os.system('nfdc route add /localhop/nfd ' + face)
 
-
+file1_metadata={
+    'chunks' = 10,
+    'alsoknownas' = '/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com/file1' 
+}
 
 print("Will adverise:" + Name.to_str(cert.key))
 @app.route(cert.key)
@@ -29,8 +33,11 @@ print("Will adverise:" + prefix + '/file1')
 @app.route(prefix + '/file1')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for " + Name.to_str(name))
-    print ("chunk " + Component.to_str(name[-1]))
-    app.put_data(name, content=b'Info about scn4ndn from .22', freshness_period=10000)
+    chunk =  Component.to_str(name[-1])
+    if (chunk = 'file1'):
+        app.put_data(name, content=json.dumps(file1_metadata), freshness_period=1)
+    else:
+        app.put_data(name, content=b'File1/' + chunk , freshness_period=1)
    
 
 if __name__ == '__main__':
