@@ -33,7 +33,7 @@ async def express_interest(insterest_name):
     except (InterestNack, InterestTimeout, InterestCanceled, ValidationFailure) as e:
         interest_failed(insterest_name)
 
-async def run():
+def run():
     interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/about"
     express_interest(interest_name)
     #app.shutdown()
