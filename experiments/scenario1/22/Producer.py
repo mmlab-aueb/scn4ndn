@@ -38,7 +38,7 @@ def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[B
         app.put_data(name, content=json.dumps(file1_metadata).encode(), freshness_period=1)
     else:
         data = 'File1/' + chunk
-        app.put_data(name, content=data.encode() , freshness_period=1)
+        app.put_data(name, content=data.encode() , freshness_period=100)
    
 
 if __name__ == '__main__':
