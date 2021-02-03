@@ -1,8 +1,9 @@
-from ndn.encoding import Name
+from ndn.encoding import Name, Component
 from ndn.app import NDNApp
 from ndn.types import InterestNack, InterestTimeout, InterestCanceled, ValidationFailure
 
 import os
+import json
 
 face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 
@@ -13,9 +14,16 @@ app = NDNApp()
 
 def data_received(insterest_name, data_name, meta_info, content):
     # Print out Data Name, MetaInfo and its conetnt.
-    print(f'Received Data Name: {Name.to_str(data_name)}')
-    print(meta_info)
-    print(bytes(content) if content else None)
+    #print(f'Received Data Name: {Name.to_str(data_name)}')
+    #print(meta_info)
+    #print(bytes(content) if content else None)
+    chunk = Component.to_str(data_name[-1])
+    if (chunk == "file1"): #root
+        data = bytes(content)
+        metadata = json.loads(data.decode())
+        print(metadata['chunks'])
+    else:
+        print(bytes(content)) 
 
 def interest_failed(interest_name):
     print(interest_name + " Failed")
