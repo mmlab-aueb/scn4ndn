@@ -14,7 +14,7 @@ os.system('nfdc face create ' + face)
 os.system('nfdc route add /ndn ' + face)
 app = NDNApp()
 
-def data_received(insterest_name, data_name, meta_info, content):
+async def data_received(insterest_name, data_name, meta_info, content):
     # Print out Data Name, MetaInfo and its conetnt.
     #print(f'Received Data Name: {Name.to_str(data_name)}')
     #print(meta_info)
@@ -24,17 +24,23 @@ def data_received(insterest_name, data_name, meta_info, content):
         print ("Received root %s" %(time.time() - start_time))
         data = bytes(content)
         metadata = json.loads(data.decode())
-        print(metadata['chunks'])
+        await asyncio.gather(
+            download_chuncks(Name.to_str(data_name),metadata['chunks'])
+        )
     else:
+        print ("Received chunk %s" %(time.time() - start_time))
         print(bytes(content)) 
 
 def interest_failed(interest_name):
     print(interest_name + " Failed")
 
+async def download_chuncks (content_name, num_chunks):
+    for x in num_chunks:
+        insterest_name = content_name + "/chunk" + 1
+        await express_interest(interest_name) 
 
 async def express_interest(insterest_name):
     try:
-        prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
         data_name, meta_info, content = await app.express_interest(
             insterest_name,
             must_be_fresh=True,
