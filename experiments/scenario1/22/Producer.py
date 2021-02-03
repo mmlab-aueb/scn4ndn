@@ -34,7 +34,7 @@ print("Will adverise:" + prefix + '/file1')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for " + Name.to_str(name))
     chunk =  Component.to_str(name[-1])
-    if (chunk = 'file1'):
+    if (chunk == 'file1'):
         app.put_data(name, content=json.dumps(file1_metadata), freshness_period=1)
     else:
         app.put_data(name, content=b'File1/' + chunk , freshness_period=1)
