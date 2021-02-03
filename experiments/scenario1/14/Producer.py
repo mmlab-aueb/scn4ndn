@@ -25,11 +25,13 @@ def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[B
     print("Received interest for key")
     app.put_raw_packet(cert.data)
 
-print("Will adverise:" + prefix + '/about')
-@app.route(prefix + '/about')
+print("Will adverise:" + prefix + '/file1')
+@app.route(prefix + '/file1')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
-    print("Received interest for /about")
-    app.put_data(name, content=b'Info about scn4ndn from .14', freshness_period=10000)
+    print("Received interest for " + Name.to_str(name))
+    chunk =  Component.to_str(name[-1])
+    data = 'File1/' + chunk
+    app.put_data(name, content=data.encode() , freshness_period=100)
    
 
 if __name__ == '__main__':
