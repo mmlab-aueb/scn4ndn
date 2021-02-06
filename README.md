@@ -11,7 +11,7 @@ the project, visit the project's [homepage](https://mm.aueb.gr/projects/scnfornd
 
 ## Contents
 ### NDN testbed
-Instructions for connecting to the NDN testbed and running experiment [Read more](ndn-testbed/README.md) 
+Instructions for connecting to the NDN testbed and running experiment [Read more](ndn-testbed/) 
 
 ### Experiments
 Information about our test cases. [Read more](experiments/README.md) 

@@ -12,7 +12,7 @@ Use [NDN Certification System](https://ndncert.named-data.net) to receive a digi
 by following the provided instructions. 
 
 ## Preparation
-Start NFD daemon (`nfd-stat`). Select the NDN testbed node to which you wish to attach. You can find available
+Start NFD daemon (`nfd-start`). Select the NDN testbed node to which you wish to attach. You can find available
 testbed nodes from the [NDN Testbed Status page](http://ndndemo.arl.wustl.edu). You can connect to any testbed
 node. Suppose you select [mmlab-1 node](https://mmlab-aueb-1.mmlab.edu.gr/n/#tab=Overview), issue the following
 commands
@@ -22,3 +22,18 @@ commands
 
 With the first command you are creating a face towards node mmlab-1, whereas with the second command you are denoting
 that mmlab-1 is your gateway and hence, all prefix registrations are forwarded to this node. 
+
+## Execution
+In the Producer.py script replace the `prefix` variable with the prefix for which you have generated the certificate.
+Then execute the Producer script by invoking `python3 Producer.py`
+
+### The Producer.py script
+The following code retrieves the certificate that corresponds to your prefix from the local keychain, it registers
+its name, and when requested it sends the actual data. 
+
+```python
+cert = app.keychain[prefix].default_key().default_cert()
+@app.route(cert.key)
+def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
+    app.put_data(name, content=cert.data, freshness_period=10000)
+```
