@@ -1,4 +1,5 @@
-# About
+# NDN Testbed instruction
+## About
 These are instructions for connecting to the [NDN testbed](https://named-data.net/ndn-testbed/policies-connecting-nodes-ndn-testbed/) and registering a content prefix. 
 
 ## Prerequisites
