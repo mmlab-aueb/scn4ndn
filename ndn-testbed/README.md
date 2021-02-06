@@ -1,5 +1,5 @@
 # About
-These are instructions for connecting to the [ndn testbed](https://named-data.net/ndn-testbed/policies-connecting-nodes-ndn-testbed/) and registering a content prefix. 
+These are instructions for connecting to the [NDN testbed](https://named-data.net/ndn-testbed/policies-connecting-nodes-ndn-testbed/) and registering a content prefix. 
 
 ## Prerequisites
 Install the [https://named-data.net/doc/NFD/current/](https://named-data.net/doc/NFD/current/) in a
@@ -28,12 +28,20 @@ In the Producer.py script replace the `prefix` variable with the prefix for whic
 Then execute the Producer script by invoking `python3 Producer.py`
 
 ### The Producer.py script
-The following code retrieves the certificate that corresponds to your prefix from the local keychain, it registers
-its name, and when requested it sends the actual data. 
+The following piece of code retrieves the certificate that corresponds to your prefix from the local keychain, it registers
+its name, and when requested it sends the certificate. 
 
 ```python
 cert = app.keychain[prefix].default_key().default_cert()
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     app.put_data(name, content=cert.data, freshness_period=10000)
+```
+
+The following piece of code registers a content item name and when requested it send the corresponding data. 
+
+```python
+@app.route(prefix + 'info')
+def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
+    app.put_data(name, content=b'Info about scn4ndn', freshness_period=10000)
 ```

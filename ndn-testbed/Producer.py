@@ -5,9 +5,8 @@ from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo
 prefix = "/ndn/gr/aueb/mmlab%40aueb.gr"
 
 app = NDNApp()
-cert = app.keychain[prefix].default_key().default_cert()
-print(Name.to_str(cert.key))
 
+cert = app.keychain[prefix].default_key().default_cert()
 @app.route(cert.key)
 def cert_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     app.put_data(name, content=cert.data, freshness_period=10000)
