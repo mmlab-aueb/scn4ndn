@@ -9,4 +9,9 @@ form of Decentralized Identifiers referred to as [did:self](https://github.com/m
 applied to [Named Data Networking](https://named-data.net) architecture. For more information about
 the project, visit the project's [homepage](https://mm.aueb.gr/projects/scnforndn). 
 
+## Contents
+### NDN testbed
+Instructions for connecting to the NDN testbed and running experiment [Read more](ndn-testbed/README.md) 
 
+### Experiments
+Information about our test cases. [Read more](experiments/README.md) 
