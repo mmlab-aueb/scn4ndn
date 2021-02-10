@@ -11,7 +11,7 @@ script sends an interest message for that prefix. The first that packet arrives 
 These metadata indicate that the content item includes 10 chunks. Then, the Consumer script requests chunks one by one, 
 i.e., it requests the second chunk after the first chunk has arrived, and so forth.  
 
-## Scenario 1: Use of multipath for content retrieval acceleration
+## Scenario 1: Use of multisource for content retrieval acceleration
 ### Description
 This scenario experiments with the use of multiple sources (multisource), that are used simultaneously for receiving an item.
 For this experiment we extended our reference scenario to include another Producer (located in the folder Producer02). This producer 
@@ -23,3 +23,15 @@ at the same time it requests the rest of the chunks using the alternative name.
 
 ### Outcome
 The requested item is received almost two times faster compared to the baseline scenario
+
+## Scenario 2: Recover from network failure using multisource
+### Description
+This scenario experiment the the use of multisource to recover from network failures at the application layer. 
+The setup of this experiment is the same as in scenario 1. However, in this experiment the Consumer script uses 
+the alternative name as a backup solution. Producer01 is configured to stop responding to new interests after 
+transmitting the 5th chunk. At this point, the corresponding interest 'times out' and the Consumer requests 
+the rest of the chunks using the alternative name. The new interests are received by Producer02.
+
+### Outcome
+The Consumer starts receiving the requested item from Producer01. After receiving the fifth chuck a
+`InterestTimeout` exception occurs. Then the Consumer continues receiving the requested item from Producer02
