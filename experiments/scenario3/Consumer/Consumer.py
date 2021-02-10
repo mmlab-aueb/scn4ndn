@@ -29,7 +29,7 @@ async def metadata_received(interest_name, data_name, meta_info, content):
     await asyncio.wait(tasks)
 
 
-async def download_chuncks_worker (content_name, fallback_name, first, last):
+async def download_chuncks_worker (content_name, first, last):
     x = first
     while (x < last+1):
         interest_name = content_name + "/" + str(x)
