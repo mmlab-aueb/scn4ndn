@@ -20,17 +20,24 @@ async def metadata_received(interest_name, data_name, meta_info, content):
     data = bytes(content)
     metadata = json.loads(data.decode())
     tasks = [
-        download_chuncks_worker(Name.to_str(data_name),1,5),
-        download_chuncks_worker(metadata['alsoknownas'],6,10)
+        download_chuncks_worker(Name.to_str(data_name), metadata['alsoknownas'], 1,10),
     ]
     await asyncio.wait(tasks)
 
 
-async def download_chuncks_worker (content_name, first, last):
-    for x in range(first,last+1):
-        interest_name = content_name + "/chunk" + str(x)
-        data_name, meta_info, content = await express_interest(interest_name)
-        print (f'{time.time() - start_time} \t received {interest_name}')
+async def download_chuncks_worker (content_name, fallback_name, first, last):
+    x = first
+    while (x < last+1):
+        interest_name = content_name + "/" + str(x)
+        try:
+            data_name, meta_info, content = await express_interest(interest_name)
+            print (f'{time.time() - start_time} \t received {interest_name}')
+            x += 1
+        except InterestTimeout:
+            print (f'{time.time() - start_time} \t timeout for {interest_name}')
+            content_name = fallback_name
+
+
 
 async def express_interest(insterest_name):
     try:
@@ -46,7 +53,7 @@ async def express_interest(insterest_name):
         print(f'Nacked with reason={e.reason}')
     except InterestTimeout:
         # Interest times out
-        print(f'Timeout')
+        raise InterestTimeout 
     except InterestCanceled:
         # Connection to NFD is broken
         print(f'Canceled')

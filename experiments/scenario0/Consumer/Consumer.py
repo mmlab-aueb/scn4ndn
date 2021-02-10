@@ -55,7 +55,7 @@ async def express_interest(insterest_name):
 
 async def run():
     interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/file1"
-    print ("Sending interest for root %s" %(time.time() - start_time))
+    print (f'{time.time() - start_time} \t sending interest')
     data_name, meta_info, content = await express_interest(interest_name)
     await metadata_received(interest_name, data_name, meta_info, content) 	
     app.shutdown()

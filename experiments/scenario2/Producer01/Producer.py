@@ -30,8 +30,8 @@ def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[B
     chunk =  Component.to_str(name[-1])
     if (chunk == 'file1'):
         app.put_data(name, content=json.dumps(file1_metadata).encode(), freshness_period=1)
-    else:
-        data = 'File1/' + chunk
+    elif (int(chunk) < 6): # send the first 5 chunks and then stop
+        data = 'file1, chunk' + chunk
         app.put_data(name, content=data.encode() , freshness_period=100)
    
 

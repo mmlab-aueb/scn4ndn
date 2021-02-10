@@ -2,22 +2,15 @@ from typing import Optional
 from ndn.app import NDNApp
 from ndn.encoding import Name, InterestParam, BinaryStr, FormalName, MetaInfo, Component
 import os
-#nfdc face create udp://ndn.netsec.colostate.edu
 
-#face = "udp://ndn.netsec.colostate.edu"
-#face = "udp://mmlab-aueb-1.mmlab.edu.gr"
 face = "udp://titan.cs.memphis.edu"
-
 prefix = "/ndn/edu/colostate/%40GUEST/nikosft%40gmail.com"
-
-app = NDNApp()
-cert = app.keychain[prefix].default_key().default_cert()
-
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
 os.system('nfdc route add /localhop/nfd ' + face)
 
-
+app = NDNApp()
+cert = app.keychain[prefix].default_key().default_cert()
 
 print("Will adverise:" + Name.to_str(cert.key))
 @app.route(cert.key)
