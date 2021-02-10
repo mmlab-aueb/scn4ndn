@@ -16,7 +16,7 @@ os.system('nfdc route add /ndn ' + face)
 app = NDNApp()
 
 async def metadata_received(interest_name, data_name, meta_info, content):
-    print (f'{time.time() - start_time} received metadata')
+    print (f'{time.time() - start_time} \t received metadata')
     data = bytes(content)
     metadata = json.loads(data.decode())
     tasks = [
@@ -29,7 +29,7 @@ async def download_chuncks_worker (content_name, first, last):
     for x in range(first,last+1):
         interest_name = content_name + "/chunk" + str(x)
         data_name, meta_info, content = await express_interest(interest_name)
-        print (f'{time.time() - start_time} Received {interest_name}')
+        print (f'{time.time() - start_time} \t received {interest_name}')
 
 async def express_interest(insterest_name):
     try:
