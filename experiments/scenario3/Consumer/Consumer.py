@@ -39,7 +39,6 @@ async def download_chuncks_worker (content_name, first, last):
             x += 1
         except InterestTimeout:
             print (f'{time.time() - start_time} \t timeout for {interest_name}')
-            content_name = fallback_name
 
 
 
@@ -50,7 +49,7 @@ async def express_interest(insterest_name):
             insterest_name,
             must_be_fresh=True,
             can_be_prefix=True,
-            lifetime=2000)
+            lifetime=6000)
         return  data_name, meta_info, content
     except InterestNack as e:
         # A NACK is received
