@@ -46,7 +46,7 @@ async def express_interest(insterest_name):
             insterest_name,
             must_be_fresh=True,
             can_be_prefix=True,
-            lifetime=1000)
+            lifetime=1500)
         return  data_name, meta_info, content
     except InterestNack as e:
         # A NACK is received
