@@ -38,6 +38,7 @@ print("Will adverise:" + prefix + '/file2')
 @app.route(prefix + '/file2')
 def info_interest(name: FormalName, param: InterestParam, _app_param: Optional[BinaryStr]):
     print("Received interest for " + Name.to_str(name))
+    chunk =  Component.to_str(name[-1])
     data = 'file1, chunk' + chunk
     app.put_data(name, content=data.encode() , freshness_period=100)
 
