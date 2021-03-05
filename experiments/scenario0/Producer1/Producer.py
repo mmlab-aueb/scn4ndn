@@ -5,7 +5,7 @@ import os
 import json
 
 face = "udp://ndn.netsec.colostate.edu"
-prefix = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com"
+prefix = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr"
 print("Configuring NFD...")
 os.system('nfdc face create ' + face)
 os.system('nfdc route add /localhop/nfd ' + face)
