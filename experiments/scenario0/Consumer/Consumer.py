@@ -54,7 +54,7 @@ async def express_interest(insterest_name):
         print(f'Data failed to validate')
 
 async def run():
-    interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/nikosft%40gmail.com/file1"
+    interest_name = "/ndn/gr/edu/mmlab1/%40GUEST/fotiou%40aueb.gr/file1"
     print (f'{time.time() - start_time} \t sending interest')
     data_name, meta_info, content = await express_interest(interest_name)
     await metadata_received(interest_name, data_name, meta_info, content) 	
