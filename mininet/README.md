@@ -7,7 +7,7 @@ validating NDN application
 * Install NFD from [sources](https://github.com/named-data/NFD)
 * Install mininet with python3 support (`sudo PYTHON=python3 mininet/util/install.sh -n`) 
 * Install [infoedit](https://github.com/NDN-Routing/infoedit) 
-* Install `python-ndn` (`pip3 install python-ndn`)
+* Install `python-ndn` as global module (`sudo -H pip3 install python-ndn`)
 
 ## Execution
 Run `sudo python3 simple_topology.py` In the `mininet>` command prompt run `xterm consumer, producer`. In the xterm 
