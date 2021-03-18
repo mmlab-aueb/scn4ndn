@@ -2,9 +2,12 @@
 This folder includes a mininet script that setups a simple topology, which can be used for
 validating NDN application
 
+
 ## Prerequisites 
-In addition to mininet, make sure you have installed NFD,
-[infoedit](https://github.com/NDN-Routing/infoedit) and `python-ndn`
+* Install NFD from [sources](https://github.com/named-data/NFD)
+* Install mininet with python3 support (`sudo PYTHON=python3 mininet/util/install.sh -n`) 
+* Install [infoedit](https://github.com/NDN-Routing/infoedit) 
+* Install `python-ndn` (`pip3 install python-ndn`)
 
 ## Execution
 Run `sudo python3 simple_topology.py` In the `mininet>` command prompt run `xterm consumer, producer`. In the xterm 
