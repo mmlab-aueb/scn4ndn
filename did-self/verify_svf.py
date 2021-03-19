@@ -41,7 +41,9 @@ if(doc_dict['document']['id'].split(":")[2] != name):
 try:
     registry.DIDSelfRegistry().load(doc_dict['document'],doc_dict['proof_chain'])
 except:
+    print("error 1")
     exit(os.EX_DATAERR)
+
 ###---Check the metadata hash---
 sha256 = hashlib.sha256() 
 sha256.update(input_file.encode())
@@ -55,5 +57,6 @@ try:
     proof.verify(key)
 except:
     exit(os.EX_DATAERR)
+
 exit(os.EX_OK)
 
