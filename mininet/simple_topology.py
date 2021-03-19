@@ -29,7 +29,7 @@ class SingleSwitchTopo(Topo):
 
     def configure_faces(self, net):
         '''
-        producer(10.0.0.1)<---->forwarder(10.0.0.3)<---->consumer(10.0.0.2)
+        producer(10.0.0.1)<---->forwarder(10.0.0.2)<---->consumer(10.0.0.3)
         '''
         forwarder = net.hosts[1]
         forwarder.cmd('export HOME=/tmp/mininet/forwarder')
