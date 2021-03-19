@@ -9,13 +9,17 @@ import subprocess
 from mininet.nodelib import NAT
 
 class SingleSwitchTopo(Topo):
-    '''
-    producer(10.0.0.1)<---->(switch)<---->consumer(10.0.0.2)
+    ''' 
+                           forwarder(10.0.0.2)
+                               |
+                               |  
+    producer(10.0.0.1)<---->(switch)<---->consumer(10.0.0.3)
     '''
     def build(self):
         hosts ={
-            'producer':'10.0.0.1/8',
-            'consumer':'10.0.0.2/8'
+            'producer' :'10.0.0.1/8',
+            'forwarder':'10.0.0.2/8',
+            'consumer' :'10.0.0.3/8'
         }
         s1 = self.addSwitch( 's1' )
         for host,ip in hosts.items():
@@ -25,12 +29,16 @@ class SingleSwitchTopo(Topo):
 
     def configure_faces(self, net):
         '''
-        producer(10.0.0.1)<---->consumer(10.0.0.2)
+        producer(10.0.0.1)<---->forwarder(10.0.0.3)<---->consumer(10.0.0.2)
         '''
-        consumer = net.hosts[1]
+        forwarder = net.hosts[1]
+        forwarder.cmd('export HOME=/tmp/mininet/forwarder')
+        forwarder.cmd('nfdc face create udp://10.0.0.1')
+        forwarder.cmd('nfdc route add /scn4ndn/testApp udp://10.0.0.1')
+        consumer = net.hosts[2]
         consumer.cmd('export HOME=/tmp/mininet/consumer')
-        consumer.cmd('nfdc face create udp://10.0.0.1')
-        consumer.cmd('nfdc route add /scn4ndn/testApp udp://10.0.0.1')
+        consumer.cmd('nfdc face create udp://10.0.0.2')
+        consumer.cmd('nfdc route add /scn4ndn/testApp udp://10.0.0.2')
         print("Faces configured")
 
 
