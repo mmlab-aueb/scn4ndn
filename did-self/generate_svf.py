@@ -33,27 +33,25 @@ if (len(sys.argv) == 4):
 else:
     registry = registry.DIDSelfRegistry()
     did_key = jwk.JWK.generate(kty='OKP', crv='Ed25519')
-    did_key_dict = did_key.export_public(as_dict=True)
+    did_key_dict = did_key.export(as_dict=True)
     # Generate the DID document
     did = "did:self:" + did_key_dict['x']
     controller = Ed25519_to_didkey(did_key_dict['x'])
     created = datetime.datetime.utcnow().replace(microsecond=0).isoformat()+'Z' #we should use the same timestamp for all documenets
-    user_key = jwk.JWK.generate(kty='OKP', crv='Ed25519')
-    user_key_dict = user_key.export(as_dict=True)
     did_document = {
         'id': did,
         'controller': controller,
         'assertion': [{
             'id': did + '#key1',
             'type': "JsonWebKey2020",
-            'publicKeyJwk': user_key_dict
+            'publicKeyJwk': did_key_dict
         }],  
     }
     proof = generate_proof(did_document, did_key, created)
     registry.create(did_document, proof)
     document, proof_chain = registry.read()
     doc_dict = {'document':document, 'proof_chain':proof_chain}
-    key_dict = user_key_dict
+    key_dict = did_key_dict
 
 
 sha256 = hashlib.sha256() 
