@@ -13,8 +13,7 @@ async def main():
     try:
         data_name, meta_info, content = await app.express_interest(
             # Interest Name
-            #'/ndn/edu/colostate/testApp/randomData',
-            '/scn4ndn/testApp',
+            '/scn4ndn/testApp/GExt6UZsqMtIwYHaA2SCx7r5oSP0QSjIp2rTRUxuqYo',
             must_be_fresh=True,
             can_be_prefix=False,
             # Interest lifetime in ms
